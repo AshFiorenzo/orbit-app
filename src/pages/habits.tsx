@@ -506,7 +506,7 @@ export function HabitsPage() {
                   </div>
 
                   <Button
-                    className={cn('w-full gap-2 border-2 transition-all', completed ? 'bg-secondary text-secondary-foreground border-secondary' : cn('hover:scale-105 shadow-sm', selectedColor.value))}
+                    className={cn('w-full gap-2 border-2 transition-all', completed ? 'bg-secondary text-secondary-foreground border-secondary' : cn('hover:scale-105 shadow-sm hover:text-white', selectedColor.value))}
                     variant={completed ? 'secondary' : 'default'}
                     onClick={() => completeHabit(habit)}
                     disabled={completed}
