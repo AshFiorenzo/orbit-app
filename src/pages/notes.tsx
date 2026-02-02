@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Plus, Search, Trash2, Pin, PinOff, Palette, MoreVertical, StickyNote, Edit2 } from 'lucide-react'
 import { blink } from '@/lib/blink'
+import { getNow } from '@/lib/date-utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
@@ -86,7 +87,7 @@ export function NotesPage() {
         title: newNote.title,
         content: newNote.content,
         userId: user?.id,
-        createdAt: new Date().toISOString()
+        createdAt: getNow().toISOString()
       }
       
       const created = await blink.db.notes.create(noteData)

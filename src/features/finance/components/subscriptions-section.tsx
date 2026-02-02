@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { blink } from '@/lib/blink'
 import { useAuth } from '@/hooks/use-auth'
+import { formatInAppTZ } from '@/lib/date-utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
@@ -190,7 +191,7 @@ export function SubscriptionsSection({ subscriptions, onUpdate }: SubscriptionsS
               </CardHeader>
               <CardContent>
                 <div className="text-xl font-bold">฿{sub.amount.toFixed(2)}</div>
-                <p className="text-xs text-muted-foreground mt-1">Next: {sub.nextPaymentDate}</p>
+                <p className="text-xs text-muted-foreground mt-1">Next: {formatInAppTZ(sub.nextPaymentDate, 'MMM d, yyyy')}</p>
               </CardContent>
             </Card>
           ))}

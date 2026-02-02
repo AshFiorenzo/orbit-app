@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { blink } from '@/lib/blink'
 import { useAuth } from '@/hooks/use-auth'
+import { formatInAppTZ } from '@/lib/date-utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -244,7 +245,7 @@ export function SavingsSection({ savings, onUpdate }: SavingsSectionProps) {
                   </div>
                   <Progress value={progress} className="h-2" />
                   {goal.deadline && (
-                    <p className="text-xs text-muted-foreground">Target Date: {goal.deadline}</p>
+                    <p className="text-xs text-muted-foreground">Target Date: {formatInAppTZ(goal.deadline, 'MMM d, yyyy')}</p>
                   )}
                 </CardContent>
               </Card>

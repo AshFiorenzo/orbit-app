@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { blink } from '@/lib/blink'
 import { useAuth } from '@/hooks/use-auth'
+import { formatInAppTZ } from '@/lib/date-utils'
 import { cn } from '@/lib/utils'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -434,7 +435,7 @@ export function TasksPage() {
                     {task.dueDate && (
                       <div className="flex items-center gap-1">
                         <Calendar size={12} />
-                        <span>{new Date(task.dueDate).toLocaleDateString()}</span>
+                        <span>{formatInAppTZ(task.dueDate, 'MMM d, yyyy')}</span>
                       </div>
                     )}
                     {task.estimatedMinutes ? (

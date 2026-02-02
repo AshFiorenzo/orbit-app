@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line, CartesianGrid } from 'recharts'
+import { getNow, formatInAppTZ } from '@/lib/date-utils'
 import { Expense, Income, Budget, CATEGORY_COLORS } from '../types'
 
 interface StatisticsSectionProps {
@@ -42,9 +43,9 @@ export function StatisticsSection({ expenses, income, budgets }: StatisticsSecti
   // Daily trends for line chart (last 30 days)
   const getDailyData = () => {
     const last30Days = new Array(30).fill(0).map((_, i) => {
-      const d = new Date()
+      const d = getNow()
       d.setDate(d.getDate() - (29 - i))
-      return d.toISOString().split('T')[0]
+      return formatInAppTZ(d, 'yyyy-MM-dd')
     })
 
     return last30Days.map(date => {

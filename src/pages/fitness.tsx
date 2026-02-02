@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { blink } from '@/lib/blink'
 import { useAuth } from '@/hooks/use-auth'
+import { getTodayStr, formatInAppTZ } from '@/lib/date-utils'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -62,7 +63,7 @@ export function FitnessPage() {
     duration: '',
     intensity: 'medium',
     notes: '',
-    date: new Date().toISOString().split('T')[0],
+    date: getTodayStr(),
   })
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [editingWorkout, setEditingWorkout] = useState<Workout | null>(null)
@@ -142,7 +143,7 @@ export function FitnessPage() {
       duration: '',
       intensity: 'medium',
       notes: '',
-      date: new Date().toISOString().split('T')[0],
+      date: getTodayStr(),
     })
     setEditingWorkout(null)
     setCustomType('')
@@ -344,7 +345,7 @@ export function FitnessPage() {
                   <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                     <div className="flex items-center gap-1">
                       <Calendar size={14} />
-                      <span>{workout.date}</span>
+                      <span>{formatInAppTZ(workout.date, 'MMM d, yyyy')}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock size={14} />

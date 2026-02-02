@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { blink } from '@/lib/blink'
 import { useAuth } from '@/hooks/use-auth'
+import { getNow, getTodayStr, formatInAppTZ, toAppTZ } from '@/lib/date-utils'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -198,7 +199,7 @@ export function HabitsPage() {
   }
 
   async function completeHabit(habit: Habit) {
-    const today = new Date().toISOString().split('T')[0]
+    const today = getTodayStr()
     if (habit.lastCompletedAt === today) {
       toast.info('Habit already completed today')
       return
@@ -243,7 +244,7 @@ export function HabitsPage() {
 
   const isCompletedToday = (lastCompletedAt: string | null) => {
     if (!lastCompletedAt) return false
-    const today = new Date().toISOString().split('T')[0]
+    const today = getTodayStr()
     return lastCompletedAt === today
   }
 
@@ -254,15 +255,15 @@ export function HabitsPage() {
   const bestStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak)) : 0
 
   const last7Days = Array.from({ length: 7 }, (_, i) => {
-    const d = new Date()
+    const d = getNow()
     d.setDate(d.getDate() - i)
-    return d.toISOString().split('T')[0]
+    return formatInAppTZ(d, 'yyyy-MM-dd')
   }).reverse()
 
   const heatmapDays = Array.from({ length: 28 }, (_, i) => {
-    const d = new Date()
+    const d = getNow()
     d.setDate(d.getDate() - i)
-    return d.toISOString().split('T')[0]
+    return formatInAppTZ(d, 'yyyy-MM-dd')
   }).reverse()
 
   return (
@@ -490,7 +491,7 @@ export function HabitsPage() {
                   <div className="flex justify-between items-center py-2">
                     {last7Days.map((date) => {
                       const isCompleted = completions.some(c => c.habitId === habit.id && c.completedAt === date)
-                      const dayName = new Date(date).toLocaleDateString('en-US', { weekday: 'narrow' })
+                      const dayName = formatInAppTZ(date, 'EEEEE')
                       return (
                         <div key={date} className="flex flex-col items-center gap-1">
                           <span className="text-[10px] text-muted-foreground uppercase">{dayName}</span>

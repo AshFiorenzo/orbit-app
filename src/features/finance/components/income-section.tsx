@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { blink } from '@/lib/blink'
 import { useAuth } from '@/hooks/use-auth'
+import { getTodayStr } from '@/lib/date-utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Plus, Trash2, ArrowUpRight } from 'lucide-react'
@@ -29,7 +30,7 @@ interface IncomeSectionProps {
 export function IncomeSection({ income, onUpdate }: IncomeSectionProps) {
   const { user } = useAuth()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [newIncome, setNewIncome] = useState({ amount: '', source: '', date: new Date().toISOString().split('T')[0] })
+  const [newIncome, setNewIncome] = useState({ amount: '', source: '', date: getTodayStr() })
 
   async function handleAddIncome() {
     if (!user || !newIncome.amount || !newIncome.source) return
@@ -42,7 +43,7 @@ export function IncomeSection({ income, onUpdate }: IncomeSectionProps) {
       })
       onUpdate()
       setIsDialogOpen(false)
-      setNewIncome({ amount: '', source: '', date: new Date().toISOString().split('T')[0] })
+      setNewIncome({ amount: '', source: '', date: getTodayStr() })
       toast.success('Income added')
     } catch (error) {
       toast.error('Failed to add income')

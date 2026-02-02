@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { blink } from '@/lib/blink'
 import { useAuth } from '@/hooks/use-auth'
+import { getNow, getTodayStr, getCurrentHour, formatInAppTZ } from '@/lib/date-utils'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { CheckSquare, Repeat, Wallet, Dumbbell, TrendingUp, StickyNote, Flame, Circle, CheckCircle2 } from 'lucide-react'
 import { Progress } from '@/components/ui/progress'
@@ -44,8 +45,8 @@ export function DashboardHome() {
   const [todayTasks, setTodayTasks] = useState<Task[]>([])
   const [habits, setHabits] = useState<Habit[]>([])
 
-  const today = new Date()
-  const todayStr = today.toISOString().split('T')[0]
+  const today = getNow()
+  const todayStr = getTodayStr()
 
   useEffect(() => {
     async function fetchStats() {
@@ -88,19 +89,14 @@ export function DashboardHome() {
   }, [user, todayStr])
 
   const greeting = () => {
-    const hour = new Date().getHours()
+    const hour = getCurrentHour()
     if (hour < 12) return 'Good Morning'
     if (hour < 18) return 'Good Afternoon'
     return 'Good Evening'
   }
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+    return formatInAppTZ(date, 'EEEE, MMMM d, yyyy')
   }
 
   const isCompletedToday = (lastCompletedAt: string | null) => {

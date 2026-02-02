@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { blink } from '@/lib/blink'
 import { useAuth } from '@/hooks/use-auth'
+import { getTodayStr } from '@/lib/date-utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { 
@@ -48,7 +49,7 @@ interface ExpensesSectionProps {
 export function ExpensesSection({ expenses, onUpdate }: ExpensesSectionProps) {
   const { user } = useAuth()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [newExpense, setNewExpense] = useState({ amount: '', category: 'General', date: new Date().toISOString().split('T')[0], note: '' })
+  const [newExpense, setNewExpense] = useState({ amount: '', category: 'General', date: getTodayStr(), note: '' })
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null)
 
   async function handleAddExpense() {
@@ -89,7 +90,7 @@ export function ExpensesSection({ expenses, onUpdate }: ExpensesSectionProps) {
   }
 
   function resetForm() {
-    setNewExpense({ amount: '', category: 'General', date: new Date().toISOString().split('T')[0], note: '' })
+    setNewExpense({ amount: '', category: 'General', date: getTodayStr(), note: '' })
     setEditingExpense(null)
   }
 
