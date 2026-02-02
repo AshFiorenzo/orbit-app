@@ -141,11 +141,23 @@ export function BudgetSection({ budgets, expenses, onUpdate }: BudgetSectionProp
           const spending = getCategorySpending(budget.category)
           const percentage = Math.min((spending / budget.amount) * 100, 100)
           const isOver = spending > budget.amount
+          const remaining = Math.max(budget.amount - spending, 0)
+          const categoryColor = CATEGORY_COLORS[budget.category] || CATEGORY_COLORS.General
 
           return (
-            <Card key={budget.id}>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-sm font-medium">{budget.category}</CardTitle>
+            <Card key={budget.id} className="overflow-hidden">
+              <div 
+                className="h-1.5 w-full" 
+                style={{ backgroundColor: categoryColor }}
+              />
+              <CardHeader className="flex flex-row items-center justify-between pb-2 pt-3">
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="h-3 w-3 rounded-full" 
+                    style={{ backgroundColor: categoryColor }}
+                  />
+                  <CardTitle className="text-sm font-medium">{budget.category}</CardTitle>
+                </div>
                 <div className="flex items-center gap-1">
                   <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => handleOpenDialog(budget)}>
                     <Pencil size={12} />
@@ -155,16 +167,33 @@ export function BudgetSection({ budgets, expenses, onUpdate }: BudgetSectionProp
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <span>Spent: ฿{spending.toFixed(2)}</span>
-                  <span>Limit: ฿{budget.amount.toFixed(2)}</span>
+              <CardContent className="space-y-3 pb-4">
+                <div className="flex items-baseline justify-between">
+                  <div>
+                    <span className="text-2xl font-bold">฿{spending.toFixed(0)}</span>
+                    <span className="text-sm text-muted-foreground"> / ฿{budget.amount.toFixed(0)}</span>
+                  </div>
+                  <span className={cn(
+                    "text-xs font-medium px-2 py-0.5 rounded-full",
+                    isOver 
+                      ? "bg-rose-100 text-rose-700" 
+                      : percentage >= 80 
+                        ? "bg-amber-100 text-amber-700"
+                        : "bg-emerald-100 text-emerald-700"
+                  )}>
+                    {isOver ? 'Over budget' : `฿${remaining.toFixed(0)} left`}
+                  </span>
                 </div>
-                <Progress 
-                  value={percentage} 
-                  className={cn("h-2", isOver && "bg-rose-100 [&>div]:bg-rose-600")}
-                />
-                <p className="text-[10px] text-right text-muted-foreground">{percentage.toFixed(0)}% used</p>
+                <div className="space-y-1">
+                  <Progress 
+                    value={percentage} 
+                    className="h-2"
+                    style={{ 
+                      '--progress-foreground': isOver ? '#dc2626' : categoryColor 
+                    } as React.CSSProperties}
+                  />
+                  <p className="text-xs text-muted-foreground text-right">{percentage.toFixed(0)}% of budget used</p>
+                </div>
               </CardContent>
             </Card>
           )
