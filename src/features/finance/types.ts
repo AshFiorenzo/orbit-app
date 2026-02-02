@@ -29,6 +29,7 @@ export interface Subscription {
   billingCycle: string
   nextPaymentDate: string
   userId: string
+  color?: string
 }
 
 export interface SavingsGoal {
@@ -38,6 +39,7 @@ export interface SavingsGoal {
   currentAmount: number
   deadline: string
   userId: string
+  color?: string
 }
 
 export const CATEGORY_COLORS: Record<string, string> = {

@@ -23,6 +23,16 @@ import {
 } from '@/components/ui/empty'
 import { Progress } from '@/components/ui/progress'
 import { SavingsGoal } from '../types'
+import { cn } from '@/lib/utils'
+
+const GOAL_COLORS = [
+  { name: 'Blue', value: '#3b82f6' },
+  { name: 'Emerald', value: '#10b981' },
+  { name: 'Violet', value: '#8b5cf6' },
+  { name: 'Amber', value: '#f59e0b' },
+  { name: 'Rose', value: '#f43f5e' },
+  { name: 'Cyan', value: '#06b6d4' },
+]
 
 interface SavingsSectionProps {
   savings: SavingsGoal[]
@@ -33,7 +43,7 @@ export function SavingsSection({ savings, onUpdate }: SavingsSectionProps) {
   const { user } = useAuth()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isContributeOpen, setIsContributeOpen] = useState(false)
-  const [newGoal, setNewGoal] = useState({ title: '', targetAmount: '', currentAmount: '0', deadline: '' })
+  const [newGoal, setNewGoal] = useState({ title: '', targetAmount: '', currentAmount: '0', deadline: '', color: GOAL_COLORS[0].value })
   const [editingGoal, setEditingGoal] = useState<SavingsGoal | null>(null)
   const [contributingGoal, setContributingGoal] = useState<SavingsGoal | null>(null)
   const [contributionAmount, setContributionAmount] = useState('')
@@ -64,6 +74,7 @@ export function SavingsSection({ savings, onUpdate }: SavingsSectionProps) {
         targetAmount: typeof editingGoal.targetAmount === 'string' ? parseFloat(editingGoal.targetAmount) : editingGoal.targetAmount,
         currentAmount: typeof editingGoal.currentAmount === 'string' ? parseFloat(editingGoal.currentAmount) : editingGoal.currentAmount,
         deadline: editingGoal.deadline,
+        color: editingGoal.color,
       })
       onUpdate()
       setIsDialogOpen(false)
@@ -95,7 +106,7 @@ export function SavingsSection({ savings, onUpdate }: SavingsSectionProps) {
   }
 
   function resetForm() {
-    setNewGoal({ title: '', targetAmount: '', currentAmount: '0', deadline: '' })
+    setNewGoal({ title: '', targetAmount: '', currentAmount: '0', deadline: '', color: GOAL_COLORS[0].value })
     setEditingGoal(null)
   }
 
@@ -169,6 +180,28 @@ export function SavingsSection({ savings, onUpdate }: SavingsSectionProps) {
                   : setNewGoal({ ...newGoal, deadline: e.target.value })
                 }
               />
+              <div className="space-y-2">
+                <p className="text-sm font-medium">Goal Color</p>
+                <div className="flex flex-wrap gap-2">
+                  {GOAL_COLORS.map((c) => (
+                    <button
+                      key={c.value}
+                      className={cn(
+                        "h-8 w-8 rounded-full border-2 transition-all",
+                        (editingGoal ? editingGoal.color : newGoal.color) === c.value
+                          ? "border-primary scale-110 shadow-sm"
+                          : "border-transparent hover:scale-105"
+                      )}
+                      style={{ backgroundColor: c.value }}
+                      onClick={() => editingGoal
+                        ? setEditingGoal({ ...editingGoal, color: c.value })
+                        : setNewGoal({ ...newGoal, color: c.value })
+                      }
+                      type="button"
+                    />
+                  ))}
+                </div>
+              </div>
               <Button className="w-full" onClick={editingGoal ? handleUpdateGoal : handleAddGoal}>
                 {editingGoal ? 'Save Changes' : 'Create Goal'}
               </Button>
@@ -207,12 +240,26 @@ export function SavingsSection({ savings, onUpdate }: SavingsSectionProps) {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
           {savings.map((goal) => {
-            const progress = (goal.currentAmount / goal.targetAmount) * 100
+            const target = Number(goal.targetAmount) || 0
+            const current = Number(goal.currentAmount) || 0
+            const progress = target > 0 ? Math.min((current / target) * 100, 100) : 0
+            const goalColor = goal.color || GOAL_COLORS[0].value
+
             return (
-              <Card key={goal.id} className="relative overflow-hidden">
-                <CardHeader className="pb-2">
+              <Card key={goal.id} className="relative overflow-hidden group hover:shadow-md transition-shadow">
+                <div 
+                  className="h-1.5 w-full" 
+                  style={{ backgroundColor: goalColor }}
+                />
+                <CardHeader className="pb-2 pt-3">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-base font-bold">{goal.title}</CardTitle>
+                    <div className="flex items-center gap-2">
+                      <div 
+                        className="h-3 w-3 rounded-full" 
+                        style={{ backgroundColor: goalColor }}
+                      />
+                      <CardTitle className="text-base font-bold">{goal.title}</CardTitle>
+                    </div>
                     <div className="flex items-center gap-1">
                       <Button
                         variant="ghost"
@@ -238,12 +285,18 @@ export function SavingsSection({ savings, onUpdate }: SavingsSectionProps) {
                 <CardContent className="space-y-4">
                   <div className="flex items-end justify-between">
                     <div>
-                      <span className="text-2xl font-bold">฿{goal.currentAmount.toFixed(2)}</span>
-                      <span className="text-sm text-muted-foreground"> / ฿{goal.targetAmount.toFixed(2)}</span>
+                      <span className="text-2xl font-bold">฿{current.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      <span className="text-sm text-muted-foreground"> / ฿{target.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                     <span className="text-sm font-medium">{progress.toFixed(0)}%</span>
                   </div>
-                  <Progress value={progress} className="h-2" />
+                  <Progress 
+                    value={progress} 
+                    className="h-2" 
+                    style={{ 
+                      '--progress-foreground': goalColor 
+                    } as React.CSSProperties}
+                  />
                   {goal.deadline && (
                     <p className="text-xs text-muted-foreground">Target Date: {formatInAppTZ(goal.deadline, 'MMM d, yyyy')}</p>
                   )}
