@@ -239,7 +239,7 @@ export function TasksPage() {
                   }
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Category</label>
                   <Select
@@ -256,7 +256,7 @@ export function TasksPage() {
                       {TASK_CATEGORIES.map((cat) => (
                         <SelectItem key={cat.value} value={cat.value}>
                           <div className="flex items-center gap-2">
-                            <span className={cn('h-2 w-2 rounded-full', cat.color.split(' ')[0])} />
+                            <span className={cn('h-2 w-2 rounded-full', cat.color.split(' ')[0].replace('border-', 'bg-'))} />
                             {cat.label}
                           </div>
                         </SelectItem>
@@ -280,7 +280,7 @@ export function TasksPage() {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Due Date</label>
                   <Input
@@ -422,8 +422,11 @@ export function TasksPage() {
                     <Badge variant="outline" className={cn('text-[10px]', priorityColors[task.priority])}>
                       {task.priority}
                     </Badge>
-                    {task.category && task.category !== 'general' && (
-                      <Badge variant="outline" className="text-[10px]">
+                    {task.category && (
+                      <Badge 
+                        variant="outline" 
+                        className={cn('text-[10px]', getCategoryColor(task.category))}
+                      >
                         {TASK_CATEGORIES.find(c => c.value === task.category)?.label || task.category}
                       </Badge>
                     )}
