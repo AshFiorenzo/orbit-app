@@ -146,8 +146,8 @@ export function StatisticsSection({ expenses, income, budgets }: StatisticsSecti
                 contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
               />
               <Legend />
-              <Bar dataKey="budget" fill="#e2e8f0" name="Budget" radius={[0, 4, 4, 0]} />
-              <Bar dataKey="actual" fill="#18181B" name="Actual" radius={[0, 4, 4, 0]} />
+              <Bar dataKey="budget" fill="#6366f1" name="Budget" radius={[0, 4, 4, 0]} opacity={0.6} />
+              <Bar dataKey="actual" fill="#10b981" name="Actual" radius={[0, 4, 4, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
