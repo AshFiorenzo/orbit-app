@@ -275,9 +275,8 @@ export function NotesPage() {
         </div>
       )}
 
-      {/* Edit Note Dialog */}
       <Dialog open={!!editingNote} onOpenChange={(open) => !open && setEditingNote(null)}>
-        <DialogContent className={cn("sm:max-w-[525px] border-none shadow-2xl", editingNote?.color && editingNote.color !== 'transparent' ? editingNote.color : 'bg-card')}>
+        <DialogContent className="sm:max-w-[525px] border-none shadow-2xl bg-card">
           <DialogHeader>
             <DialogTitle>Edit Note</DialogTitle>
           </DialogHeader>
