@@ -33,17 +33,17 @@ interface Note {
 }
 
 const COLORS = [
-  { name: 'Default', value: 'border-primary/10' },
-  { name: 'Red', value: 'border-red-500/50 text-red-700 dark:text-red-400' },
-  { name: 'Orange', value: 'border-orange-500/50 text-orange-700 dark:text-orange-400' },
-  { name: 'Yellow', value: 'border-yellow-500/50 text-yellow-700 dark:text-yellow-400' },
-  { name: 'Green', value: 'border-emerald-500/50 text-emerald-700 dark:text-emerald-400' },
-  { name: 'Teal', value: 'border-teal-500/50 text-teal-700 dark:text-teal-400' },
-  { name: 'Blue', value: 'border-blue-500/50 text-blue-700 dark:text-blue-400' },
-  { name: 'Purple', value: 'border-purple-500/50 text-purple-700 dark:text-purple-400' },
-  { name: 'Pink', value: 'border-pink-500/50 text-pink-700 dark:text-pink-400' },
-  { name: 'Brown', value: 'border-amber-500/50 text-amber-700 dark:text-amber-400' },
-  { name: 'Gray', value: 'border-zinc-500/50 text-zinc-700 dark:text-zinc-400' },
+  { name: 'Default', value: 'border-primary/20' },
+  { name: 'Red', value: 'border-red-500 text-red-700 dark:text-red-400 bg-red-500/10' },
+  { name: 'Orange', value: 'border-orange-500 text-orange-700 dark:text-orange-400 bg-orange-500/10' },
+  { name: 'Yellow', value: 'border-yellow-500 text-yellow-700 dark:text-yellow-400 bg-yellow-500/10' },
+  { name: 'Green', value: 'border-emerald-500 text-emerald-700 dark:text-emerald-400 bg-emerald-500/10' },
+  { name: 'Teal', value: 'border-teal-500 text-teal-700 dark:text-teal-400 bg-teal-500/10' },
+  { name: 'Blue', value: 'border-blue-500 text-blue-700 dark:text-blue-400 bg-blue-500/10' },
+  { name: 'Purple', value: 'border-purple-500 text-purple-700 dark:text-purple-400 bg-purple-500/10' },
+  { name: 'Pink', value: 'border-pink-500 text-pink-700 dark:text-pink-400 bg-pink-500/10' },
+  { name: 'Brown', value: 'border-amber-500 text-amber-700 dark:text-amber-400 bg-amber-500/10' },
+  { name: 'Gray', value: 'border-zinc-500 text-zinc-700 dark:text-zinc-400 bg-zinc-500/10' },
 ]
 
 export function NotesPage() {
@@ -392,14 +392,14 @@ function NoteCard({
               <Palette className="h-3.5 w-3.5 text-muted-foreground" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="grid grid-cols-4 gap-1 p-2" onClick={(e) => e.stopPropagation()}>
+                <DropdownMenuContent align="end" className="grid grid-cols-4 gap-1 p-2" onClick={(e) => e.stopPropagation()}>
             {COLORS.map((c) => (
               <Button
                 key={c.value}
                 variant="outline"
                 className={cn(
                   "h-6 w-6 rounded-full p-0 border-2",
-                  c.value === 'border-primary/10' ? "bg-card border-primary/10" : c.value
+                  c.name === 'Default' ? "bg-card border-primary/20" : c.value
                 )}
                 onClick={(e) => {
                   e.stopPropagation()

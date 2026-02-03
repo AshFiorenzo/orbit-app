@@ -54,12 +54,12 @@ import { cn } from '@/lib/utils'
 import { Label } from '@/components/ui/label'
 
 const PREDEFINED_COLORS = [
-  { name: 'Blue', value: 'border-blue-500/50 text-blue-500 bg-blue-500/5', border: 'border-blue-500/50', text: 'text-blue-500' },
-  { name: 'Green', value: 'border-emerald-500/50 text-emerald-500 bg-emerald-500/5', border: 'border-emerald-500/50', text: 'text-emerald-500' },
-  { name: 'Rose', value: 'border-rose-500/50 text-rose-500 bg-rose-500/5', border: 'border-rose-500/50', text: 'text-rose-500' },
-  { name: 'Amber', value: 'border-amber-500/50 text-amber-500 bg-amber-500/5', border: 'border-amber-500/50', text: 'text-amber-500' },
-  { name: 'Purple', value: 'border-purple-500/50 text-purple-500 bg-purple-500/5', border: 'border-purple-500/50', text: 'text-purple-500' },
-  { name: 'Teal', value: 'border-teal-500/50 text-teal-500 bg-teal-500/5', border: 'border-teal-500/50', text: 'text-teal-500' },
+  { name: 'Blue', value: 'border-blue-500 text-blue-500 bg-blue-500/10', border: 'border-blue-500', text: 'text-blue-500' },
+  { name: 'Green', value: 'border-emerald-500 text-emerald-500 bg-emerald-500/10', border: 'border-emerald-500', text: 'text-emerald-500' },
+  { name: 'Rose', value: 'border-rose-500 text-rose-500 bg-rose-500/10', border: 'border-rose-500', text: 'text-rose-500' },
+  { name: 'Amber', value: 'border-amber-500 text-amber-500 bg-amber-500/10', border: 'border-amber-500', text: 'text-amber-500' },
+  { name: 'Purple', value: 'border-purple-500 text-purple-500 bg-purple-500/10', border: 'border-purple-500', text: 'text-purple-500' },
+  { name: 'Teal', value: 'border-teal-500 text-teal-500 bg-teal-500/10', border: 'border-teal-500', text: 'text-teal-500' },
 ]
 
 const PREDEFINED_ICONS = [
@@ -358,7 +358,7 @@ export function HabitsPage() {
                       className={cn(
                         "h-8 w-8 rounded-full border-2 transition-all",
                         color.value,
-                        (editingHabit ? editingHabit.color : newHabit.color) === color.value ? "border-black scale-110 shadow-sm" : "border-transparent opacity-70 hover:opacity-100"
+                        (editingHabit ? editingHabit.color : newHabit.color) === color.value ? "border-black scale-110 shadow-sm" : "border-transparent hover:scale-110"
                       )}
                       title={color.name}
                     />
