@@ -12,5 +12,5 @@ function getProjectId(): string {
 export const blink = createClient({
   projectId: getProjectId(),
   publishableKey: import.meta.env.VITE_BLINK_PUBLISHABLE_KEY,
-  auth: { mode: 'headless' },
+  auth: { mode: 'managed' },
 })
