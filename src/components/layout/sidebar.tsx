@@ -93,12 +93,14 @@ export function Sidebar() {
   return (
     <aside className="relative hidden lg:flex h-screen w-64 flex-col border-r-2 bg-card">
       <div className="flex h-16 items-center border-b-2 px-6">
-        <div className="flex items-center gap-2">
-          <div className="h-6 w-6 rounded-md border-2 border-primary bg-primary/5 flex items-center justify-center">
-            <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-          </div>
+        <Link to="/" className="flex items-center gap-2 group">
+          <img 
+            src="https://firebasestorage.googleapis.com/v0/b/blink-451505.firebasestorage.app/o/user-uploads%2FYmeBbUvrcRXaiHna0yTTg1YAEnD2%2Forbitlogo__e6d256de.png?alt=media&token=6cafb6d1-aa01-47aa-bf45-2a59c3cd4d73" 
+            alt="Orbit Logo" 
+            className="h-8 w-8 transition-transform group-hover:scale-110"
+          />
           <span className="text-xl font-black tracking-tighter italic">ORBIT</span>
-        </div>
+        </Link>
       </div>
       <SidebarContent />
     </aside>
@@ -119,7 +121,14 @@ export function MobileHeader() {
   const { logout } = useAuth()
   return (
     <header className="flex lg:hidden h-14 items-center justify-between border-b bg-card px-4">
-      <span className="text-lg font-bold tracking-tight">ORBIT</span>
+      <Link to="/" className="flex items-center gap-2">
+        <img 
+          src="https://firebasestorage.googleapis.com/v0/b/blink-451505.firebasestorage.app/o/user-uploads%2FYmeBbUvrcRXaiHna0yTTg1YAEnD2%2Forbitlogo__e6d256de.png?alt=media&token=6cafb6d1-aa01-47aa-bf45-2a59c3cd4d73" 
+          alt="Orbit Logo" 
+          className="h-6 w-6"
+        />
+        <span className="text-lg font-bold tracking-tight">ORBIT</span>
+      </Link>
       <Button variant="ghost" size="icon" onClick={logout} className="text-destructive">
         <LogOut size={18} />
       </Button>

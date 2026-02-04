@@ -18,7 +18,11 @@ export function LandingPage() {
 
       <header className="sticky top-0 z-50 flex h-20 items-center justify-between bg-background/80 px-6 backdrop-blur-md md:px-12 border-b">
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold">O</div>
+          <img 
+            src="https://firebasestorage.googleapis.com/v0/b/blink-451505.firebasestorage.app/o/user-uploads%2FYmeBbUvrcRXaiHna0yTTg1YAEnD2%2Forbitlogo__e6d256de.png?alt=media&token=6cafb6d1-aa01-47aa-bf45-2a59c3cd4d73" 
+            alt="Orbit Logo" 
+            className="h-10 w-10"
+          />
           <div className="text-2xl font-bold tracking-tighter">ORBIT</div>
         </div>
         <div className="flex items-center gap-4">
