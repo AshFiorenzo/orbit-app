@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/use-auth'
 import { LandingPage } from '@/pages/landing'
+import { AuthPage } from '@/pages/auth'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { DashboardHome } from '@/pages/dashboard'
 import { TasksPage } from '@/pages/tasks'
@@ -21,23 +22,28 @@ function App() {
     )
   }
 
-  if (!isAuthenticated) {
-    return <LandingPage />
-  }
-
   return (
     <Router>
-      <DashboardLayout>
+      {!isAuthenticated ? (
         <Routes>
-          <Route path="/" element={<DashboardHome />} />
-          <Route path="/tasks" element={<TasksPage />} />
-          <Route path="/habits" element={<HabitsPage />} />
-          <Route path="/finance" element={<FinancePage />} />
-          <Route path="/fitness" element={<FitnessPage />} />
-          <Route path="/notes" element={<NotesPage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/auth" element={<AuthPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </DashboardLayout>
+      ) : (
+        <DashboardLayout>
+          <Routes>
+            <Route path="/" element={<DashboardHome />} />
+            <Route path="/tasks" element={<TasksPage />} />
+            <Route path="/habits" element={<HabitsPage />} />
+            <Route path="/finance" element={<FinancePage />} />
+            <Route path="/fitness" element={<FitnessPage />} />
+            <Route path="/notes" element={<NotesPage />} />
+            <Route path="/auth" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </DashboardLayout>
+      )}
     </Router>
   )
 }

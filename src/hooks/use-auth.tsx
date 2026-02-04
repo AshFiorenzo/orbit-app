@@ -8,6 +8,7 @@ interface AuthContextType {
   isAuthenticated: boolean
   login: (redirectUrl?: string) => void
   logout: () => void
+  signInWithGoogle: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -25,11 +26,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const login = (redirectUrl?: string) => {
-    blink.auth.login(redirectUrl || window.location.href)
+    // In headless mode, we redirect to our own /auth page
+    window.location.href = `/auth?redirect=${encodeURIComponent(redirectUrl || window.location.pathname)}`
   }
 
   const logout = () => {
     blink.auth.signOut()
+  }
+
+  const signInWithGoogle = async () => {
+    await blink.auth.signInWithGoogle()
   }
 
   return (
@@ -40,6 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isAuthenticated: !!user,
         login,
         logout,
+        signInWithGoogle,
       }}
     >
       {children}
