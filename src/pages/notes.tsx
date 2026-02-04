@@ -355,7 +355,7 @@ function NoteCard({
   return (
     <Card 
       className={cn(
-        "group transition-all hover:shadow-md cursor-pointer",
+        "group relative transition-all hover:shadow-md cursor-pointer",
         note.color !== 'transparent' && note.color
       )}
       onClick={() => onEdit(note)}
