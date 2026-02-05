@@ -17,10 +17,9 @@ Orbit is a beautiful, all-in-one life organizer designed to help you stay produc
 ## 🛠️ Tech Stack
 
 - **Frontend**: React + Vite + TypeScript
-- **Styling**: Tailwind CSS + Shadcn/ui
+- **Styling**: Tailwind CSS 
 - **Backend/Auth**: Blink SDK
 - **Icons**: Lucide React
-- **Animations**: Framer Motion
 
 ## 🏗️ Development
 
