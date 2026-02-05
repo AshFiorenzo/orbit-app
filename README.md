@@ -1,59 +1,43 @@
-# Enhanced Vite React TypeScript Template
+# Orbit Life Organizer
 
-This template includes built-in detection for missing CSS variables between your Tailwind config and CSS files.
+Orbit is a beautiful, all-in-one life organizer designed to help you stay productive, healthy, and financially on track. Stop switching between dozens of apps and manage everything in one intuitive space.
 
-## Features
+## 🚀 Core Features
 
-- **CSS Variable Detection**: Automatically detects if CSS variables referenced in `tailwind.config.cjs` are defined in `src/index.css`
-- **Enhanced Linting**: Includes ESLint, Stylelint, and custom CSS variable validation
-- **Shadcn/ui**: Pre-configured with all Shadcn components
-- **Modern Stack**: Vite + React + TypeScript + Tailwind CSS
+- **Tasks & Projects**: Organize your work with smart task management, deadlines, and categories.
+- **Habit Tracking**: Build healthy habits with daily check-ins and streak tracking.
+- **Finance Management**: 
+    - **Budget & Expenses**: Control spending by categories and monitor your finances.
+    - **Subscriptions**: Never miss a payment with a dedicated subscription calendar and reminders.
+    - **Savings Goals**: Set financial targets and watch your progress with visual indicators.
+- **Fitness Journal**: Keep a workout log to maintain consistency and track your intensity.
+- **Media Library**: Your personal entertainment journal for tracking books, movies, and series.
+- **Notes**: A clean space for quick thoughts and pinned information.
 
-## Available Scripts
+## 🛠️ Tech Stack
+
+- **Frontend**: React + Vite + TypeScript
+- **Styling**: Tailwind CSS + Shadcn/ui
+- **Backend/Auth**: Blink SDK
+- **Icons**: Lucide React
+- **Animations**: Framer Motion
+
+## 🏗️ Development
 
 ```bash
-# Run all linting (includes CSS variable check)
-npm run lint
+# Install dependencies
+npm install
 
-# Check only CSS variables
-npm run check:css-vars
+# Run development server
+npm run dev
 
-# Individual linting
-npm run lint:js    # ESLint
-npm run lint:css   # Stylelint
+# Build for production
+npm run build
 ```
 
-## CSS Variable Detection
+## 📄 Documentation
 
-The template includes a custom script that:
+This project uses a structured design system defined in `src/index.css` and `tailwind.config.cjs`. Custom HSL color tokens are used to maintain a cohesive "Mono" aesthetic.
 
-1. **Parses `tailwind.config.cjs`** to find all `var(--variable)` references
-2. **Parses `src/index.css`** to find all defined CSS variables (`--variable:`)
-3. **Cross-references** them to find missing definitions
-4. **Reports undefined variables** with clear error messages
-
-### Example Output
-
-When CSS variables are missing:
-```
-❌ Undefined CSS variables found in tailwind.config.cjs:
-   --sidebar-background
-   --sidebar-foreground
-   --sidebar-primary
-
-Add these variables to src/index.css
-```
-
-When all variables are defined:
-```
-✅ All CSS variables in tailwind.config.cjs are defined
-```
-
-## How It Works
-
-The detection happens during the `npm run lint` command, which will:
-- Exit with error code 1 if undefined variables are found
-- Show exactly which variables need to be added to your CSS file
-- Integrate seamlessly with your development workflow
-
-This prevents runtime CSS issues where Tailwind classes reference undefined CSS variables.
+---
+Built with ❤️ using [Blink](https://blink.new)
