@@ -21,22 +21,8 @@ Orbit is a beautiful, all-in-one life organizer designed to help you stay produc
 - **Backend/Auth**: Blink SDK
 - **Icons**: Lucide React
 
-## 🏗️ Development
-
-```bash
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
-```
-
 ## 📄 Documentation
 
 This project uses a structured design system defined in `src/index.css` and `tailwind.config.cjs`. Custom HSL color tokens are used to maintain a cohesive "Mono" aesthetic.
 
----
-Built with ❤️ using [Blink](https://blink.new)
+## Created for DTI 413 Project. By Aung Koko
